@@ -1,0 +1,35 @@
+{
+  "name": "billboard-mcp",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for querying and booking real-world digital billboard ad space across 6,400+ US locations via natural language.",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "billboard-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "billboards",
+    "advertising",
+    "claude",
+    "chatgpt",
+    "cursor"
+  ],
+  "author": "LocalAds Space",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.2"
+  }
+}
