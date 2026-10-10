@@ -319,7 +319,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     };
 
     const selected = priceMap[tier] || priceMap["1day"];
-    const confirmationUrl = `https://localads.space/checkout?id=${id}&tier=${tier}&date=${targetDateStr}`;
+    const queryParams = new URLSearchParams({
+      id,
+      tier,
+      date: targetDateStr,
+      ...(args?.headline_text ? { headline: String(args.headline_text) } : {}),
+      ...(args?.contact_phone_or_url ? { contact: String(args.contact_phone_or_url) } : {}),
+    });
+    const webCheckoutUrl = `https://localads.space/checkout?${queryParams.toString()}`;
 
     return {
       content: [
@@ -333,14 +340,16 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
               total_amount: selected.price,
               guaranteed_airtime: selected.flashes,
               confirmed_launch_date: targetDateStr,
+              headline: args?.headline_text || null,
+              contact_info: args?.contact_phone_or_url || null,
               next_steps: [
-                "1. Click the secure Stripe checkout link to authorize the reservation.",
-                "2. LocalAds Space compliance team submits artwork to the billboard operator.",
-                "3. Operator confirms approval within 12-24 hours.",
-                "4. Live proof-of-performance (timestamped photos & broadcast logs) delivered upon launch.",
+                "1. Click the primary checkout link to review your board specifications and creative copy.",
+                "2. Complete secure payment via Stripe to lock in the reservation.",
+                "3. LocalAds Space compliance team reviews artwork against state DOT guidelines within 12-24 hours.",
+                "4. Live proof-of-performance (timestamped photos & broadcast analytics) delivered to your email upon launch.",
               ],
-              stripe_checkout_link: selected.stripe_url,
-              web_customizer_link: confirmationUrl,
+              primary_checkout_link: webCheckoutUrl,
+              direct_stripe_link: selected.stripe_url,
             },
             null,
             2
