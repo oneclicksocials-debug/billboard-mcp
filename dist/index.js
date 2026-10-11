@@ -247,7 +247,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             },
             times_square: {
                 price: "$497.00",
-                stripe_url: "https://buy.stripe.com/cNi4gzgfP9Iqdbx3x04F202",
+                stripe_url: "https://buy.stripe.com/aFabJ12oZg6O4F14B44F204",
                 flashes: "100+ prime evening flashes + 4K operator proof photos",
             },
         };
